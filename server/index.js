@@ -7,9 +7,10 @@ port = process.env.PORT
 require('./db/db')
 // models
 require('./models/artistmodel')
-require('./models/ratingmodel')
 require('./models/songmodel')
 require('./models/usermodel')
+
+
 
 app.get('/', async (req, res) => {
     res.send("Hello World")
