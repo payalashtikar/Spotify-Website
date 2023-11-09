@@ -12,10 +12,17 @@ require('./models/usermodel')
 
 
 
-app.get('/', async (req, res) => {
-    res.send("Hello World")
-})
+// app.get('/', async (req, res) => {
+//     res.send("Hello World")
+// })
 
+
+
+// middleware
+app.use(express.json())
+app.use(require('./routes/userRoute'))
+app.use(require('./routes/songRoute'))
+app.use(require('./routes/artistRoute'))
 
 
 
