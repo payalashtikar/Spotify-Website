@@ -1,11 +1,12 @@
 import React from 'react'
 import Navbar from '../navbar/Navbar'
+import GetAllSongs from '../song/GetAllSongs'
 
 const Home = () => {
   return (
     <div>
-        <Navbar/>
-        <h1>this is homepage</h1>
+        <Navbar />
+        <GetAllSongs/>
     </div>
   )
 }
