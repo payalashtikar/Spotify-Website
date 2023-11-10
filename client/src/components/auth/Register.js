@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Nav from '../navbar/Nav';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -51,6 +52,7 @@ const Register = () => {
 
     return (
         <div style={{ width: '100%', height: '100vh' }}>
+        <Nav/>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <form
                     onSubmit={handleRegister}
