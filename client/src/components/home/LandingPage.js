@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon, calculateSize } from '@iconify/react';
+import Nav from '../navbar/Nav';
 
 const LandingPage = () => {
     const navigate = useNavigate()
@@ -8,6 +9,7 @@ const LandingPage = () => {
     const gotoRegisterPage = () => { navigate('/register') }
     return (
         <div style={{ height: '' }}>
+        <Nav/>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
                 <h1>Welcome to Spotify</h1>
                 <div>
