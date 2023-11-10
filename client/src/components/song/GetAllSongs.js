@@ -5,7 +5,7 @@ const GetAllSongs = () => {
 
     const getAllSongs = async () => {
         try {
-            const response = await fetch("http://localhost:8080/songs", {
+            const response = await fetch("http://localhost:8888/songs", {
                 method: "GET"
             })
             const respData = await response.json();
