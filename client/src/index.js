@@ -8,6 +8,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Home from './components/home/Home';
 import AddSong from './components/song/AddSong';
+import AddArtist from './components/artist/AddArtist';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +21,7 @@ root.render(
       <Route path='/register' element={<Register />} />
       <Route path='/homepage' element={<Home />} />
       <Route path='/addsong' element={<AddSong />} />
+      <Route path='/addartist' element={<AddArtist />} />
     </Routes>
   </BrowserRouter>
 );

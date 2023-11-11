@@ -29,6 +29,7 @@ const GetAllArtists = () => {
                         <th>Artist</th>
                         <th>Date of Birth</th>
                         <th>Song</th>
+                        <th>Bio</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,7 @@ const GetAllArtists = () => {
                                         )
                                     })}
                                 </td>
+                                <td>{item.bio}</td>
                             </tr>
                         );
                     })}
