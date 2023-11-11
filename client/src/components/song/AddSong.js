@@ -8,6 +8,8 @@ const AddSong = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
+    const goToArtist = () => { navigate('/addartist') }
+
     return (
         <>
             <Navbar />
@@ -49,7 +51,7 @@ const AddSong = () => {
                         </Upload>
                     </Form.Item>
                     <Form.Item label="Cover Photo" name="coverImage">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style={{ width: '150px', margin: '5px 15px' }}>+ Add Artist</button>
+                        <button onClick={goToArtist} class="btn btn-outline-success my-2 my-sm-0" type="submit" style={{ width: '150px', margin: '5px 15px' }}>+ Add Artist</button>
                     </Form.Item>
                     <Form.Item shouldUpdate>
                         {() => (
@@ -64,12 +66,12 @@ const AddSong = () => {
                                 <Button
                                     style={{ width: "25%", padding: "5px", marginLeft: "10px" }}
                                     htmlType="button"
-                                    // onClick={() => form.resetFields()}
+                                // onClick={() => form.resetFields()}
                                 >
                                     {" "}
                                     Save
                                 </Button>
-                                
+
                             </Fragment>
                         )}
                     </Form.Item>
