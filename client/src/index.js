@@ -2,22 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './components/home/LandingPage';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Home from './components/home/Home';
+import AddSong from './components/song/AddSong';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-  {/* <Navbar/> */}
+    {/* <Navbar/> */}
     <Routes>
-    {/* <Route path='/' element={<Navbar />} /> */}
+      {/* <Route path='/' element={<Navbar />} /> */}
       <Route path='/' element={<LandingPage />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/homepage' element={<Home />} />
+      <Route path='/addsong' element={<AddSong />} />
     </Routes>
   </BrowserRouter>
 );

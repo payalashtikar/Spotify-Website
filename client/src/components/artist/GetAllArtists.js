@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './song.css'
 const GetAllArtists = () => {
     const [data, setData] = useState([])
@@ -25,33 +25,31 @@ const GetAllArtists = () => {
         <div className='song-container'>
             <table>
                 <thead>
-                <tr>
+                    <tr>
                         <th>Artist</th>
                         <th>Date of Birth</th>
                         <th>Song</th>
                     </tr>
                 </thead>
                 <tbody>
-                {data.map((item, id) => {
+                    {data.map((item, id) => {
                         return (
                             <tr key={id}>
                                 <td>{item.name}</td>
                                 <td>{item.dob}</td>
                                 {/* <td>{item.songs.map((val, id) => val.name).join(' , ')}</td> */}
                                 <td>
-                                    {item.songs.map((val,id)=>{
-                                        return(
+                                    {item.songs.map((val, id) => {
+                                        return (
                                             <ul key={id}>
                                                 <li>{val.name}</li>
                                             </ul>
                                         )
                                     })}
                                 </td>
-
                             </tr>
                         );
                     })}
-
                 </tbody>
             </table>
         </div>
