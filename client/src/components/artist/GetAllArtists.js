@@ -37,7 +37,8 @@ const GetAllArtists = () => {
                         return (
                             <tr key={id}>
                                 <td>{item.name}</td>
-                                <td>{item.dob}</td>
+                                <td>{new Date(item.dob).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+
                                 {/* <td>{item.songs.map((val, id) => val.name).join(' , ')}</td> */}
                                 <td>
                                     {item.songs.map((val, id) => {

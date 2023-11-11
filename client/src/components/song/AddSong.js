@@ -7,8 +7,94 @@ const { Option } = Select;
 const AddSong = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
+    const [image, setImage] = useState("");
+    const [artists, setArtists] = useState([]);
 
     const goToArtist = () => { navigate('/addartist') }
+    const goToHomePage = () => { navigate('/homepage') }
+
+    const uploadImage = async (options) => {
+        const { file } = options;
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "payal_cloudinaryImage");
+        data.append("cloud_name", "dmodq8klr");
+        try {
+            let resp = await fetch(
+                "https://api.cloudinary.com/v1_1/dmodq8klr/image/upload",
+                {
+                    method: "POST",
+                    body: data,
+                }
+            );
+            resp = await resp.json();
+
+            setImage(resp.url);
+            console.log('resp.url:::', resp.url)
+        } catch (error) {
+            console.error("Error uploading image:", error.message);
+        }
+    };
+
+    useEffect(() => {
+        const fetchArtists = async () => {
+            try {
+                const result = await fetch("http://localhost:8888/artists");
+                const data = await result.json();
+                if (result.ok) {
+                    setArtists(data.map((artist) => artist.name));
+                } else {
+                    console.error("Error fetching artists:", data.error);
+                }
+            } catch (error) {
+                console.error("Error fetching artists:", error.message);
+            }
+        };
+
+        fetchArtists();
+    }, []);
+
+    const onFinish = async (values) => {
+        console.log('values::', values);
+
+        try {
+            const result = await fetch("http://localhost:8888/songs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: values.name,
+                    dateOfRelease: values.dateOfRelease,
+                    coverImage: image,
+                    artists: values.artists,
+                }),
+            });
+            const data = await result.json();
+            console.log('data:::', data);
+
+            // Display data inside the console
+            console.log('Song data:', {
+                name: values.name,
+                dateOfRelease: values.dateOfRelease,
+                coverImage: image,
+                artist: values.artists,
+            });
+
+            if (result.ok) {
+                form.resetFields();
+                navigate("/homepage");
+            } else {
+                console.error("Error creating song:", data.error);
+            }
+        } catch (error) {
+            console.error("Error creating song:", error.message);
+        }
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.error("Failed:", errorInfo);
+    };
 
     return (
         <>
@@ -19,8 +105,8 @@ const AddSong = () => {
                     form={form}
                     name="basic"
                     layout="vertical"
-                    // onFinish={onFinish}
-                    // onFinishFailed={onFinishFailed}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     autoComplete="on"
                     style={{ width: "500px", margin: "0 auto", padding: "10px" }}
                 >
@@ -32,10 +118,9 @@ const AddSong = () => {
                     </Form.Item>
                     <Form.Item label="Artists" name="artists">
                         <Select mode="multiple" placeholder="Select artists">
-                            {/* {artists.map((artist) => (
-                            <Option key={artist}>{artist}</Option>
-                        ))} */}
-                            <Option>choose</Option>
+                            {artists.map((artist) => (
+                                <Option key={artist}>{artist}</Option>
+                            ))}
                         </Select>
                     </Form.Item>
                     <Form.Item label="Cover Photo" name="coverImage">
@@ -43,7 +128,7 @@ const AddSong = () => {
                             showUploadList={true}
                             listType="picture-card"
                             accept="image/*"
-                        // customRequest={uploadImage}
+                            customRequest={uploadImage}
                         >
                             <div>
                                 <div style={{ marginTop: 8 }}>Drop/Upload Files Here</div>
@@ -61,15 +146,23 @@ const AddSong = () => {
                                     type="primary"
                                     htmlType="submit"
                                 >
-                                    Cancel
+                                    Save
                                 </Button>
                                 <Button
                                     style={{ width: "25%", padding: "5px", marginLeft: "10px" }}
                                     htmlType="button"
-                                // onClick={() => form.resetFields()}
+                                    onClick={() => form.resetFields()}
                                 >
                                     {" "}
-                                    Save
+                                    Reset
+                                </Button>
+                                <Button
+                                    style={{ width: "25%", padding: "5px", marginLeft: "10px" }}
+                                    htmlType="button"
+                                    onClick={goToHomePage}
+                                >
+                                    {" "}
+                                    Cancel
                                 </Button>
 
                             </Fragment>
