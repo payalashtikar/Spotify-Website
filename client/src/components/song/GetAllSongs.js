@@ -38,9 +38,12 @@ const GetAllSongs = () => {
                     {data.map((song, id) => {
                         return (
                             <tr key={id}>
-                                <td>{song.coverImage}</td>
+                                <td>
+                                    <img width='50px' src={song.coverImage} alt=''/>
+                                </td>
                                 <td>{song.name}</td>
-                                <td>{song.dateOfRelease}</td>
+                                <td>{new Date(song.dateOfRelease).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+
                                 <td>{song.artist.map((artist, id) => artist.name).join('')}</td>
                                 <td>{song.ratings.length > 0 ? song.ratings.map((val) => val.rating).join(', ') : 'N/A'}</td>
                             </tr>
