@@ -9,6 +9,7 @@ import Register from './components/auth/Register';
 import Home from './components/home/Home';
 import AddSong from './components/song/AddSong';
 import AddArtist from './components/artist/AddArtist';
+import TopSongs from './components/song/Top10Songs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ root.render(
       <Route path='/homepage' element={<Home />} />
       <Route path='/addsong' element={<AddSong />} />
       <Route path='/addartist' element={<AddArtist />} />
+      <Route path='/topsongs' element={<TopSongs />} />
     </Routes>
   </BrowserRouter>
 );

@@ -14,16 +14,22 @@ const GetAllSongs = () => {
             // calculating average rating for each song
             const averageRatings = respData.reduce((acc, song) => {
                 const ratings = song.ratings.map((rating) => rating.rating);
-                const averageRating = ratings.length > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length : 0;
-                console.log(`Song: ${song.name}, Average Rating: ${averageRating.toFixed(1)}`);
+                const averageRating =
+                    ratings.length > 0
+                        ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+                        : 0;
+                // console.log(`Song: ${song.name}, Average Rating: ${averageRating.toFixed(1)}`);
                 acc[song._id] = averageRating;
                 return acc;
             }, {});
 
+            // Sort songs based on average rating in descending order
+            const sortedSongs = respData.sort(
+                (a, b) => avgRating[b._id] - avgRating[a._id]
+            );
 
-            console.log(respData)
-            console.log(respData.artists)
-            setData(respData)
+            console.log('getAllSongs', respData)
+            setData(sortedSongs)
             setAvgRating(averageRatings)
         }
         catch (error) {
@@ -33,7 +39,7 @@ const GetAllSongs = () => {
 
     useEffect(() => {
         getAllSongs()
-    }, [])
+    }, )
 
     const StarRating = ({ rating, onRatingClick, songId }) => {
         const [clickedStarIndex, setClickedStarIndex] = useState(0);
@@ -116,7 +122,7 @@ const GetAllSongs = () => {
                                 <td>{song.name}</td>
                                 <td>{new Date(song.dateOfRelease).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
 
-                                <td>{song.artist.map((artist, id) => artist.name).join('')}</td>
+                                <td>{song.artist.map((artist, id) => artist.name).join(' , ')}</td>
                                 {/* <td>{song.ratings.length > 0 ? song.ratings.map((val) => val.rating).join(', ') : 'N/A'}</td> */}
                                 <td>
                                     <StarRating rating={song.averageRating} onRatingClick={handleRatingClick} songId={song._id} />
