@@ -10,6 +10,7 @@ import Home from './components/home/Home';
 import AddSong from './components/song/AddSong';
 import AddArtist from './components/artist/AddArtist';
 import TopSongs from './components/song/Top10Songs';
+import Top10Artists from './components/artist/Top10Artists';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
       <Route path='/addsong' element={<AddSong />} />
       <Route path='/addartist' element={<AddArtist />} />
       <Route path='/topsongs' element={<TopSongs />} />
+      <Route path='/topartists' element={<Top10Artists />} />
     </Routes>
   </BrowserRouter>
 );
