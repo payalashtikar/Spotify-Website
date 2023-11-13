@@ -13,9 +13,19 @@ const GetAllArtists = () => {
             setData(respData)
         }
         catch (error) {
-            console.log('error', error)
+            console.log('error fetching artists : ', error.message)
         }
     }
+
+    const calculateAverageRating = (ratings) => {
+        const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+        return ratings.length > 0 ? totalRating / ratings.length : 0;
+    };
+
+    const sortedArtists = data.sort(
+        (a, b) => calculateAverageRating(b.songs.flatMap((song) => song.ratings)) - calculateAverageRating(a.songs.flatMap((song) => song.ratings))
+    );
+
     useEffect(() => {
         getAllArtists()
     }, [])
@@ -23,6 +33,7 @@ const GetAllArtists = () => {
 
     return (
         <div className='song-container'>
+            <h1>Artist List</h1>
             <table>
                 <thead>
                     <tr>
@@ -30,10 +41,12 @@ const GetAllArtists = () => {
                         <th>Date of Birth</th>
                         <th>Song</th>
                         <th>Bio</th>
+                        <th>Rate</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, id) => {
+                    {sortedArtists.map((item, id) => {
                         return (
                             <tr key={id}>
                                 <td>{item.name}</td>
@@ -44,12 +57,13 @@ const GetAllArtists = () => {
                                     {item.songs.map((val, id) => {
                                         return (
                                             <ul key={id}>
-                                                <li>{val.name}</li>
+                                                <li>{val.name} : {calculateAverageRating(val.ratings).toFixed(1)}</li>
                                             </ul>
                                         )
                                     })}
                                 </td>
                                 <td>{item.bio}</td>
+                                <td>{calculateAverageRating(item.songs.flatMap((song) => song.ratings)).toFixed(1)}</td>
                             </tr>
                         );
                     })}
