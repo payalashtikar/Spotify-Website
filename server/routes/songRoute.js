@@ -6,15 +6,47 @@ const Artist = mongoose.model('Artist')
 const User = mongoose.model('User')
 
 
+// router.post('/songs', async (req, res) => {
+//     const { name, releaseDate, coverImage, artists } = req.body;
+
+//     try {
+//         // Create the new song
+//         const newSong = await Song.create({ name, releaseDate, coverImage, artists });
+
+//         // Update each artist's list of songs
+//         for (const artistId of artists) {
+//             await Artist.findByIdAndUpdate(artistId, { $push: { songs: newSong._id } });
+//         }
+
+//         res.json(newSong);
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// });
+
+
 router.post('/songs', async (req, res) => {
-    const { name, releaseDate, coverImage, artists } = req.body;
+    const { name, dateOfRelease, coverImage, artists } = req.body;
 
     try {
+        // Check if the song with the given name already exists
+    const existingSong = await Song.findOne({ name });
+
+    if (existingSong) {
+      // If the song already exists, send a response indicating that it's already present
+      return res.status(400).json({ error: 'Song already exists' });
+    }
+        // Map artist names to their ObjectIds
+        const artistObjectIds = await Promise.all(artists.map(async (artistName) => {
+            const artist = await Artist.findOne({ name: artistName });
+            return artist._id;
+        }));
+
         // Create the new song
-        const newSong = await Song.create({ name, releaseDate, coverImage, artists });
+        const newSong = await Song.create({ name, dateOfRelease, coverImage, artists: artistObjectIds });
 
         // Update each artist's list of songs
-        for (const artistId of artists) {
+        for (const artistId of artistObjectIds) {
             await Artist.findByIdAndUpdate(artistId, { $push: { songs: newSong._id } });
         }
 
@@ -23,6 +55,7 @@ router.post('/songs', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // get all songs 
 // This route uses the Song.find() method to retrieve all songs from the MongoDB database. 

@@ -9,12 +9,11 @@ const User = require('../models/usermodel')
 const secretKey = process.env.SecretKey;
 
 
-
+// DATABASE CONNECTION
 const connectionParams = {useNewUrlParser:true,useUnifiedTopology:true}
 mongoose.connect(dburl,connectionParams)
 .then(()=>{console.log('connection successful')})
 .catch((error)=>{console.log('connection failed',error)})
-
 
 
 // PASSPORT SETUP

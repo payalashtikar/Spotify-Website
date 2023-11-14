@@ -27,6 +27,37 @@ router.post('/register', async (req, res) => {
     }
 });
 
+// router.post('/login', async (req, res) => {
+//     try {
+//         // get email, password
+//         const { email, password } = req.body;
+//         // check if user is exist or not
+//         const user = await User.findOne({ email: email })
+//         if (!user) {
+//             console.log('invalid user')
+//             return res.status(400).json({ error: 'Invalid user' })
+//         }
+//         // check password correct or not
+//         const isPasswordValid = await bcrypt.compare(password, user.password);
+//         if (!isPasswordValid) {
+//             console.log('invalid password')
+//             return res.status(400).json({ error: 'Incorrect Password!' })
+//         }
+//         // create a token for this user
+//         const token = await getToken(user.email, user);
+//         // creadentials correct , then return token to the user
+//         const userReturn = { ...user.toJSON(), token };
+//         delete userReturn.password;
+//         console.log(userReturn)
+//         return res.status(200).json({ message: "login success", userReturn });
+//     }
+//     catch (err) {
+//         return res.status(400).json({ error: "login failed", details: err.message });
+
+//     }
+// })
+
+
 router.post('/login', async (req, res) => {
     try {
         // get email, password
@@ -46,7 +77,9 @@ router.post('/login', async (req, res) => {
         // create a token for this user
         const token = await getToken(user.email, user);
         // creadentials correct , then return token to the user
-        const userReturn = { ...newUser.toJSON(), token };
+        // const userReturn = { ...newUser.toJSON(), token };
+        const userReturn = { ...user.toJSON(), token };
+
         delete userReturn.password;
         console.log(userReturn)
         return res.status(200).json({ message: "login success", userReturn });
@@ -57,5 +90,30 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.get('/getalluser', async (req, res) => {
+    try {
+        let users = await User.find();
+        return res.status(200).send(users);
+    }
+    catch (error) {
+        return res.status(500).send("Error");
+
+    }
+})
+
+
+// fetch respective user data 
+router.get('/userdata/:id', async (req, res) => {
+    // const userId = req.params.userId;
+
+    try {
+        // Fetch user-specific data from the database based on userId
+        const userData = await User.find({ _id: req.params.id }); // Replace with your actual data model and query
+
+        res.json(userData);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 module.exports = router;

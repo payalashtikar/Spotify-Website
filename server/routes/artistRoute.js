@@ -37,7 +37,7 @@ router.get('/artists/:id', async (req, res) => {
 // API route to get all artists
 router.get('/artists', async (req, res) => {
     try {
-        const artists = await Artist.find();
+        const artists = await Artist.find().populate('songs');
         res.json(artists);
     } catch (error) {
         res.status(500).json({ error: error.message });

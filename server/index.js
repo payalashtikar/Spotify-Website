@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const dotEnv = require('dotenv')
+const cors = require('cors')
 dotEnv.config()
 port = process.env.PORT
 // database
@@ -20,6 +21,7 @@ require('./models/usermodel')
 
 // middleware
 app.use(express.json())
+app.use(cors())
 app.use(require('./routes/userRoute'))
 app.use(require('./routes/songRoute'))
 app.use(require('./routes/artistRoute'))
