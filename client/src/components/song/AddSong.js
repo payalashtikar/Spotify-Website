@@ -99,8 +99,8 @@ const AddSong = () => {
     return (
         <>
             <Navbar />
-            <div>
-                <h1>Add your song...</h1>
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <h1 style={{ color: 'darkgray' }}>Add your song...</h1>
                 <Form
                     form={form}
                     name="basic"
@@ -135,8 +135,9 @@ const AddSong = () => {
                             </div>
                         </Upload>
                     </Form.Item>
-                    <Form.Item label="Cover Photo" name="coverImage">
-                        <button onClick={goToArtist} class="btn btn-outline-success my-2 my-sm-0" type="submit" style={{ width: '150px', margin: '5px 15px' }}>+ Add Artist</button>
+                    <Form.Item label="" name="">
+                        <p>add artist if not available inside list</p>
+                        <button onClick={goToArtist} class="btn btn-outline-success my-2 my-sm-0" type="submit" style={{ width: '150px', margin: '5px 5px' }}>+ Add Artist</button>
                     </Form.Item>
                     <Form.Item shouldUpdate>
                         {() => (
@@ -160,6 +161,7 @@ const AddSong = () => {
                                     style={{ width: "25%", padding: "5px", marginLeft: "10px" }}
                                     htmlType="button"
                                     onClick={goToHomePage}
+                                    danger
                                 >
                                     {" "}
                                     Cancel

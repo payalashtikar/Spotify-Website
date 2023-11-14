@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, calculateSize } from '@iconify/react';
+import { Icon } from '@iconify/react';
 
 const Nav = () => {
     return (

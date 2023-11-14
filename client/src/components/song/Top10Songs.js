@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import './song.css';
+import Navbar from '../navbar/Navbar';
 
 const TopSongs = () => {
   const [topSongs, setTopSongs] = useState([]);
@@ -39,39 +40,42 @@ const TopSongs = () => {
   }, []);
 
   return (
-    <div className='song-container'>
-      <h1>Top 10 Songs</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Cover</th>
-            <th>Song</th>
-            <th>Date of Release</th>
-            <th>Artist</th>
-            <th>Average Rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topSongs.map((song, id) => (
-            <tr key={id}>
-              <td>
-                <img width='50px' src={song.coverImage} alt='' />
-              </td>
-              <td>{song.name}</td>
-              <td>
-                {new Date(song.dateOfRelease).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </td>
-              <td>{song.artist.map((artist, id) => artist.name).join(' , ')}</td>
-              <td>{calculateAverageRating(song.ratings).toFixed(1)}</td>
+    <>
+      <Navbar />
+      <div className='song-container'>
+        <h1>Top 10 Songs</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Cover</th>
+              <th>Song</th>
+              <th>Date of Release</th>
+              <th>Artist</th>
+              <th>Average Rating</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {topSongs.map((song, id) => (
+              <tr key={id}>
+                <td>
+                  <img width='50px' src={song.coverImage} alt='' />
+                </td>
+                <td>{song.name}</td>
+                <td>
+                  {new Date(song.dateOfRelease).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </td>
+                <td>{song.artist.map((artist, id) => artist.name).join(' , ')}</td>
+                <td>{calculateAverageRating(song.ratings).toFixed(1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

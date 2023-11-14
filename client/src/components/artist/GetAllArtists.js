@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './song.css'
+import Navbar from '../navbar/Navbar'
 const GetAllArtists = () => {
     const [data, setData] = useState([])
 
@@ -32,44 +33,51 @@ const GetAllArtists = () => {
 
 
     return (
-        <div className='song-container'>
-            <h1>Artist List</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Artist</th>
-                        <th>Date of Birth</th>
-                        <th>Song</th>
-                        <th>Bio</th>
-                        <th>Rate</th>
+        <>
+            <Navbar />
+            <div className='song-container'>
+                <h1>Artist List</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Artist</th>
+                            <th>Date of Birth</th>
+                            <th>Song</th>
+                            <th>Bio</th>
+                            <th>Rate</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedArtists.map((item, id) => {
-                        return (
-                            <tr key={id}>
-                                <td>{item.name}</td>
-                                <td>{new Date(item.dob).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
-
-                                {/* <td>{item.songs.map((val, id) => val.name).join(' , ')}</td> */}
-                                <td>
-                                    {item.songs.map((val, id) => {
-                                        return (
-                                            <ul key={id}>
-                                                <li>{val.name} : {calculateAverageRating(val.ratings).toFixed(1)}</li>
-                                            </ul>
-                                        )
-                                    })}
-                                </td>
-                                <td>{item.bio}</td>
-                                <td>{calculateAverageRating(item.songs.flatMap((song) => song.ratings)).toFixed(1)}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedArtists.map((item, id) => {
+                            return (
+                                <tr key={id}>
+                                    <td>{item.name}</td>
+                                    <td>{new Date(item.dob).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                                    <td>
+                                        {item.songs.map((val, id) => {
+                                            return (
+                                                <ul key={id}>
+                                                    <li>{val.name} </li>
+                                                    {/* <li>{val.name} : {calculateAverageRating(val.ratings).toFixed(1)}</li> */}
+                                                </ul>
+                                            )
+                                        })}
+                                    </td>
+                                    <td>{item.bio}</td>
+                                    <td>
+                                        {calculateAverageRating(item.songs.flatMap((song) => song.ratings)).toFixed(1) === '0.0'
+                                            ? 0
+                                            : calculateAverageRating(item.songs.flatMap((song) => song.ratings)).toFixed(1)}
+                                    </td>
+                                    {/* <td>{calculateAverageRating(item.songs.flatMap((song) => song.ratings)).toFixed(1)}</td> */}
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </>
     )
 }
 

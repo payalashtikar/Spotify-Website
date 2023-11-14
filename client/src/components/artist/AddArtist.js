@@ -37,16 +37,16 @@ const AddArtist = () => {
 
 
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Navbar />
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: '30px 10px' }}>
-                <h1>Add artist...</h1>
+                <h1 style={{ color: 'darkgray' }}>Add artist...</h1>
                 <form style={{ width: '600px' }}>
                     <div className="form-group row" style={{ margin: '10px 5px' }}>
                         <label htmlFor="artist" className="col-md-4 col-form-label">
                             Artist
                         </label>
-                        <div className="col-sm-9">
+                        <div className="col-sm-12">
                             <input type="text" className="form-control" id="artist" name="name" value={artistData.name} onChange={handleChange} />
                         </div>
                     </div>
@@ -54,7 +54,7 @@ const AddArtist = () => {
                         <label htmlFor="dob" className="col-md-4 col-form-label">
                             DOB
                         </label>
-                        <div className="col-sm-9">
+                        <div className="col-sm-12">
                             <input type="date" className="form-control" id="dob" name="dob" value={artistData.dob} onChange={handleChange} />
                         </div>
                     </div>
@@ -62,12 +62,12 @@ const AddArtist = () => {
                         <label htmlFor="bio" className="col-md-4 col-form-label">
                             Bio
                         </label>
-                        <div className="col-sm-9">
+                        <div className="col-sm-12">
                             <textarea type="text" className="form-control" id="bio" name="bio" value={artistData.bio} onChange={handleChange} />
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', margin: '30px 0px' }}>
+                    <div style={{ display: 'flex', margin: '30px 0px', justifyContent: 'center' }}>
                         <button type="button" onClick={addArtistFunction} className="btn btn-outline-danger my-2 my-sm-0" style={{ width: '150px', margin: '5px 20px' }}>
                             Cancel
                         </button>
