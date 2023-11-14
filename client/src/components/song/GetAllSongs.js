@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './song.css'
+import Navbar from '../navbar/Navbar';
 const GetAllSongs = () => {
     const [data, setData] = useState([])
     const [avgRating, setAvgRating] = useState({});
@@ -28,7 +29,7 @@ const GetAllSongs = () => {
                 (a, b) => avgRating[b._id] - avgRating[a._id]
             );
 
-            console.log('getAllSongs', respData)
+            // console.log('getAllSongs', respData)
             setData(sortedSongs)
             setAvgRating(averageRatings)
         }
@@ -39,7 +40,7 @@ const GetAllSongs = () => {
 
     useEffect(() => {
         getAllSongs()
-    }, )
+    },)
 
     const StarRating = ({ rating, onRatingClick, songId }) => {
         const [clickedStarIndex, setClickedStarIndex] = useState(0);
@@ -68,7 +69,6 @@ const GetAllSongs = () => {
             </div>
         );
     };
-
 
     const handleRatingClick = async (songId, rating) => {
         try {
@@ -100,40 +100,43 @@ const GetAllSongs = () => {
     };
 
     return (
-        <div className='song-container'>
-            <h1>Songs List</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cover</th>
-                        <th>Song</th>
-                        <th>Date of Release</th>
-                        <th>Artist</th>
-                        <th>Rating</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((song, id) => {
-                        return (
-                            <tr key={id}>
-                                <td>
-                                    <img width='50px' src={song.coverImage} alt='' />
-                                </td>
-                                <td>{song.name}</td>
-                                <td>{new Date(song.dateOfRelease).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+        <>
+            <Navbar />
+            <div className='song-container'>
+                <h1>Songs List</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Song</th>
+                            <th>Date of Release</th>
+                            <th>Artist</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((song, id) => {
+                            return (
+                                <tr key={id}>
+                                    <td>
+                                        <img width='50px' src={song.coverImage} alt='' />
+                                    </td>
+                                    <td>{song.name}</td>
+                                    <td>{new Date(song.dateOfRelease).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
 
-                                <td>{song.artist.map((artist, id) => artist.name).join(' , ')}</td>
-                                {/* <td>{song.ratings.length > 0 ? song.ratings.map((val) => val.rating).join(', ') : 'N/A'}</td> */}
-                                <td>
-                                    <StarRating rating={song.averageRating} onRatingClick={handleRatingClick} songId={song._id} />
-                                </td>
-                            </tr>
-                        );
-                    })}
+                                    <td>{song.artist.map((artist, id) => artist.name).join(' , ')}</td>
+                                    {/* <td>{song.ratings.length > 0 ? song.ratings.map((val) => val.rating).join(', ') : 'N/A'}</td> */}
+                                    <td>
+                                        <StarRating rating={song.averageRating} onRatingClick={handleRatingClick} songId={song._id} />
+                                    </td>
+                                </tr>
+                            );
+                        })}
 
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        </>
     )
 }
 

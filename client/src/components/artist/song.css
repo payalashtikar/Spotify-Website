@@ -4,23 +4,35 @@
     justify-content: center;
     width: 100%;
     align-items: center;
-    /* background: red; */
     height: auto;
     padding: 30px;
 }
-table{
+
+td {
+    width: 250px;
+}
+
+table {
     width: 100%;
 }
-tr,td,th{
-    /* border: 1px solid lightgray; */
+
+tr,
+td,
+th {
+    border: 1px solid lightgray;
     padding: 5px;
 }
-th{
+
+th {
     background-color: aliceblue;
 }
-ul li{
+
+ul {
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+}
+
+ul li {
     list-style: none;
 }
-tr:nth-child(even) {
-    /* background-color: #D6EEEE; */
-  }

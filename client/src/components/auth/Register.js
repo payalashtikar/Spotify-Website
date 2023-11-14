@@ -52,7 +52,7 @@ const Register = () => {
 
     return (
         <div style={{ width: '100%', height: '100vh' }}>
-        <Nav/>
+            <Nav />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <form
                     onSubmit={handleRegister}
