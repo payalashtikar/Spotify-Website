@@ -83,8 +83,15 @@ const AddSong = () => {
 
             if (result.ok) {
                 form.resetFields();
+                alert('Song added to yor list')
                 navigate("/homepage");
-            } else {
+            }
+            else if (data.error === "Song already exists") {
+                // Display alert when song is already present
+                alert("Song already present in you list");
+                navigate('/allsongs')
+            }
+            else {
                 console.error("Error creating song:", data.error);
             }
         } catch (error) {

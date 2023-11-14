@@ -33,6 +33,7 @@ const Login = () => {
             if (response.ok) {
                 // Login successful, handle success
                 console.log('Login successful:', responseData.message);
+                alert('Login successful:')
                 navigate('/homepage')
             } else {
                 // Login failed, update the error state

@@ -35,13 +35,13 @@ const Register = () => {
             if (response.ok) {
                 // Registration successful, handle success
                 console.log('Registration successful:', responseData.message);
-                // alert('Registration successful', responseData.message)
+                alert('Registration successful')
                 navigate('/login')
             } else {
                 // Registration failed, handle error
                 setError(responseData.error || 'Registration failed');
                 console.error('Registration failed:', responseData.error || 'Unknown error');
-                // alert('Registration failed', responseData.error)
+                alert('Registration failed')
             }
         } catch (error) {
             console.error('Registration failed:', error.message);
