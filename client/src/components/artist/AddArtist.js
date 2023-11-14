@@ -28,7 +28,10 @@ const AddArtist = () => {
             });
             const respData = await response.json();
             console.log('addArtistFunction response ::::', respData);
-            if (respData) { navigate('/addsong') }
+            if (respData) {
+                alert('Artist added to yor list, now you can able to select ')
+                navigate('/addsong')
+            }
         } catch (error) {
             console.error('Error in adding Artist:', error.message);
             alert('Error in adding Artist');
