@@ -10,6 +10,7 @@
 7. can able to add songs
 8. can able to add artist (if artist is not available inside dropdown, first add then select)
 9. songs and artist list will update based on their ratings
+10. In artist you can able to see 1 artist can have multiple songs and one song can be sung by multiple artist as well
 
 
 ### Done things in Server side ###
